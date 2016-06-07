@@ -1,0 +1,9 @@
+recursive-include doc *
+recursive-include urllockdown/static *
+recursive-include urllockdown/templates *
+
+include LICENSE
+include README
+include *.txt
+
+prune example/

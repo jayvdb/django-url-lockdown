@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
+from urllockdown.models import URL
 from urllockdown import settings
 
 
@@ -67,7 +68,18 @@ class UrlLockdownMiddleware(object):
         res = render_to_response('urllockdown/form.html', {},
                                  context_instance=RequestContext(request))
         #return HttpResponseRedirect('/cybint')
-        return res
+
+        urls = URL.objects.all()
+        for url in urls:
+            print url, request.path
+            if url.pattern == request.path:
+
+                return res
+
+
+
+
+        return None
 
     def get_session(self, request):
         try:

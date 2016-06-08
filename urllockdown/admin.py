@@ -1,14 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 """
-import logging
-
 from django.contrib import admin
 
 from .models import URL, LockPage
-
-# Get an instance of a logger
-logger = logging.getLogger(__name__)
 
 
 @admin.register(LockPage)

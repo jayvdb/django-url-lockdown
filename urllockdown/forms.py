@@ -1,7 +1,15 @@
+# -*- coding: utf-8 -*-
+"""
+"""
 from django import forms
-from django.contrib import auth
-from django.contrib.auth.forms import AuthenticationForm
+from django.forms import forms
+from django.forms import ModelForm
 
-from urllocks import settings
+from urllockdown.models import URL
 
 
+class URLForm(ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+    class Meta:
+        model = URL
+        fields = ['password']

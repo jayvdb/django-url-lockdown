@@ -74,13 +74,8 @@ class UrlLockdownMiddleware(object):
 
         urls = URL.objects.all()
         for url in urls:
-            print url, request.path
             if url.pattern == request.path:
-
                 return res
-
-
-
 
         return None
 

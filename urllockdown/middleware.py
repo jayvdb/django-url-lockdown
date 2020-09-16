@@ -9,20 +9,26 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:
+    MiddlewareMixin = object
+
 from urllockdown.models import URL
 from urllockdown import settings
 
 
-class UrlLockdownMiddleware(object):
+class UrlLockdownMiddleware(MiddlewareMixin):
     """Middleware to password protect specific urls"""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Initialize the middleware, by setting the configuration values.
 
         :param caching:
         """
         self.enabled = settings.ENABLED
         self.session_key = settings.SESSION_KEY
+        super(UrlLockdownMiddleware, self).__init__(*args, **kwargs)
 
     def process_request(self, request):
         """Check if each request is allowed to access the current resource.
